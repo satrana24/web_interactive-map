@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101612">
+  <title>NØRTH / CAMP — пространство тишины</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="NØRTH CAMP — главная">
+        <span class="brand-mark">N<span>Ø</span></span>
+        <span class="brand-divider"></span>
+        <span class="brand-caption">NORTH<br>CAMP</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Основная навигация">
+        <button class="nav-link active" data-page="explore">Исследовать</button>
+        <button class="nav-link" data-page="houses">Домики</button>
+        <button class="nav-link" data-page="bookings">Мои брони <span class="nav-count" id="booking-count">0</span></button>
+      </nav>
+
+      <div class="header-status">
+        <span class="status-dot"></span>
+        <span>СИСТЕМА АКТИВНА</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> ESCAPE THE ORDINARY / 01</div>
+          <h1>Ближе к природе.<br><span>Дальше от шума.</span></h1>
+          <p>Выбери своё пространство среди леса. Исследуй территорию, найди дом и забронируй время для перезагрузки.</p>
+        </div>
+        <div class="hero-coordinates">
+          <span class="mono-label">LOCATION / 60° N</span>
+          <span class="coordinate-value">FOREST ZONE</span>
+          <span class="coordinate-sub">NORTH TERRITORY · 2026</span>
+        </div>
+      </section>
+
+      <section class="stats-strip" aria-label="Информация о территории">
+        <div class="stat-item">
+          <span class="stat-number">08</span>
+          <span class="stat-label">УНИКАЛЬНЫХ МЕСТ</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">02</span>
+          <span class="stat-label">ТИПА ПРОЖИВАНИЯ</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">ПЕРЕЗАГРУЗКА</span>
+        </div>
+        <div class="stat-note">ОТКЛЮЧИСЬ ОТ ГОРОДА.<br>ПОДКЛЮЧИСЬ К СЕБЕ.</div>
+      </section>
+
+      <section id="explore-page" class="page-section">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">01 / TERRITORY</div>
+            <h2>Исследуй территорию</h2>
+          </div>
+          <div class="legend map-legend" aria-label="Обозначения карты">
+            <div class="legend-item"><span class="legend-mark available"></span> Свободен</div>
+            <div class="legend-item"><span class="legend-mark selected"></span> Выбран</div>
+            <div class="legend-item"><span class="legend-mark occupied"></span> Занят</div>
+          </div>
+        </div>
+
+        
+<div class="workspace">
+  <aside class="filter-panel panel">
+    <div class="panel-topline">
+      <span class="mono-label">ПАРАМЕТРЫ ПОИСКА</span>
+      <span class="panel-index">F — 01</span>
+    </div>
+
+    <div class="filter-group">
+      <label for="guests-filter">Количество гостей</label>
+      <select id="guests-filter">
+        <option value="1">От 1 гостя</option>
+        <option value="2">От 2 гостей</option>
+        <option value="3">От 3 гостей</option>
+        <option value="4">От 4 гостей</option>
+      </select>
+    </div>
+
+    <div class="filter-group date-filter-group">
+      <label for="date-check-in">Даты проживания</label>
+      <div class="filter-date-fields">
+        <div>
+          <span>Заезд</span>
+          <input type="date" id="date-check-in" aria-label="Дата заезда">
+        </div>
+        <div>
+          <span>Выезд</span>
+          <input type="date" id="date-check-out" aria-label="Дата выезда">
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="filter-label-row">
+        <label for="price-filter">Цена за ночь</label>
+        <span id="price-value" class="filter-value">до 15 000 ₽</span>
+      </div>
+      <input id="price-filter" type="range" min="4000" max="15000" step="500" value="15000">
+      <div class="range-labels"><span>4 000 ₽</span><span>15 000 ₽</span></div>
+    </div>
+
+    <button class="reset-filters" id="reset-filters">↺ Сбросить фильтры</button>
+
+    <div class="filter-footnote">
+      Данные обновляются автоматически при выборе объекта.
+    </div>
+  </aside>
+
+  <div class="map-and-detail" id="map-and-detail">
+    <div class="map-panel panel">
+      <div class="map-toolbar">
+        <div>
+          <span class="mono-label">NORTH TERRITORY</span>
+          <span class="map-subtitle">СХЕМА ПОСЁЛКА / 1:1200</span>
+        </div>
+        <div class="map-tools">
+          <button class="map-control" id="zoom-in" aria-label="Увеличить карту">+</button>
+          <button class="map-control" id="zoom-out" aria-label="Уменьшить карту">−</button>
+        </div>
+      </div>
+
+      <div class="map-viewport" id="map-viewport">
+        <div class="map-canvas" id="map-canvas">
+          <svg class="map-art" viewBox="0 0 900 600" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+                <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#a9c0a1" stroke-opacity=".10" stroke-width="1"/>
+              </pattern>
+              <pattern id="forest" width="70" height="60" patternUnits="userSpaceOnUse">
+                <path d="M20 12 L10 31 L30 31 Z M20 25 L7 46 L33 46 Z" fill="#49634b" opacity=".45"/>
+                <path d="M53 3 L42 22 L64 22 Z M53 17 L39 38 L67 38 Z" fill="#314d3a" opacity=".5"/>
+              </pattern>
+            </defs>
+            <rect width="900" height="600" fill="#18271d"/>
+            <rect width="900" height="600" fill="url(#grid)"/>
+            <path d="M0 0 H900 V110 C760 145 670 90 560 145 S330 180 220 130 S80 165 0 120Z" fill="url(#forest)"/>
+            <path d="M0 400 C130 340 220 440 340 390 S570 350 680 430 S820 390 900 360 V600 H0Z" fill="url(#forest)"/>
+            <path d="M710 -20 C650 90 760 160 680 250 S620 380 700 480 S760 570 720 630" fill="none" stroke="#607b65" stroke-width="42" opacity=".28"/>
+            <path d="M710 -20 C650 90 760 160 680 250 S620 380 700 480 S760 570 720 630" fill="none" stroke="#8fa98c" stroke-width="2" stroke-dasharray="5 10" opacity=".5"/>
+            <path d="M-20 300 C120 280 220 300 340 280 S520 250 900 290" fill="none" stroke="#b6ad8b" stroke-width="24" opacity=".12"/>
+            <path d="M-20 300 C120 280 220 300 340 280 S520 250 900 290" fill="none" stroke="#b6ad8b" stroke-width="2" stroke-dasharray="8 8" opacity=".65"/>
+            <path d="M120 0 C150 100 200 180 340 280 S490 420 520 600" fill="none" stroke="#b6ad8b" stroke-width="18" opacity=".10"/>
+            <path d="M120 0 C150 100 200 180 340 280 S490 420 520 600" fill="none" stroke="#b6ad8b" stroke-width="1.5" stroke-dasharray="5 8" opacity=".55"/>
+            <path d="M95 430 C125 390 195 390 220 425 C245 460 210 505 160 505 C110 505 70 470 95 430Z" fill="#345e5d" stroke="#71928a" stroke-width="2"/>
+            <path d="M110 445 C140 420 190 415 210 445" fill="none" stroke="#8bb3a4" stroke-width="1.5" opacity=".6"/>
+            <text x="150" y="475" fill="#b6d0bd" font-size="11" text-anchor="middle" letter-spacing="3">LAKE 01</text>
+            <text x="35" y="45" fill="#a7bba6" font-size="10" letter-spacing="2">N ↑</text>
+            <path d="M42 55 L42 80 M42 55 L37 64 M42 55 L47 64" stroke="#a7bba6" stroke-width="1.5" fill="none"/>
+            <text x="745" y="560" fill="#a7bba6" font-size="10" letter-spacing="2">FOREST AREA</text>
+            <text x="390" y="250" fill="#a7bba6" font-size="10" letter-spacing="2">MAIN PATH</text>
+            <path d="M-30 160 C100 210 170 175 270 205 S470 245 590 205 S790 180 940 220" fill="none" stroke="#b6ad8b" stroke-width="13" opacity=".08"/>
+            <path d="M-30 160 C100 210 170 175 270 205 S470 245 590 205 S790 180 940 220" fill="none" stroke="#a9b38e" stroke-width="1.5" stroke-dasharray="4 9" opacity=".38"/>
+            <path d="M40 620 C100 530 180 545 250 590 S420 650 520 585 S740 540 930 610" fill="none" stroke="#607b65" stroke-width="34" opacity=".18"/>
+            <path d="M-40 520 C80 480 150 520 230 490 S390 470 470 510" fill="none" stroke="#b6ad8b" stroke-width="2" stroke-dasharray="5 9" opacity=".35"/>
+            <path d="M930 70 C820 115 810 180 875 240 S930 340 860 410" fill="none" stroke="#b6ad8b" stroke-width="2" stroke-dasharray="5 9" opacity=".35"/>
+            <path d="M300 -30 C270 55 315 110 390 145 S470 190 500 235" fill="none" stroke="#607b65" stroke-width="28" opacity=".16"/>
+            <text x="70" y="565" fill="#a7bba6" font-size="9" letter-spacing="2" opacity=".7">SOUTH TRAIL</text>
+            <text x="770" y="150" fill="#a7bba6" font-size="9" letter-spacing="2" opacity=".7">NORTH GROVE</text>
+          </svg>
+
+          <div class="map-label label-lake">01 / LAKE</div>
+          <div class="map-label label-forest">FOREST LINE</div>
+          <div class="map-label label-zone">RESIDENTIAL ZONE A</div>
+          <div id="map-markers" class="map-markers"></div>
+          <div class="map-scale"><span></span> 50 M</div>
+        </div>
+      </div>
+
+      <div class="map-footer">
+        <span id="map-result-count">08 ОБЪЕКТОВ НА КАРТЕ</span>
+        <span>HOVER / EXPLORE · CLICK / SELECT</span>
+      </div>
+    </div>
+
+    <aside class="detail-panel panel" id="detail-panel" aria-live="polite"></aside>
+  </div>
+</div>
+
+<div class="catalog-heading">
+  <div>
+    <div class="eyebrow">02 / STAY OPTIONS</div>
+    <h2>Выбери своё место</h2>
+  </div>
+  <span class="catalog-count" id="catalog-count">08 ВАРИАНТОВ</span>
+</div>
+
+<div class="house-list" id="house-list" aria-label="Список домиков"></div>
+</section>
+
+
+      <section id="houses-page" class="page-section hidden">
+        <div class="section-heading houses-page-heading">
+          <div>
+            <div class="eyebrow">03 / CABIN COLLECTION</div>
+            <h2>Домики NØRTH / CAMP</h2>
+            <p>Подробности, оснащение и впечатления гостей — выбери пространство для отдыха.</p>
+          </div>
+          <span class="live-indicator">08 ОБЪЕКТОВ</span>
+        </div>
+        <div id="house-catalog" class="compact-house-grid"></div>
+      </section>
+
+      <section id="house-detail-page" class="page-section hidden">
+        <button class="back-to-catalog" id="back-to-catalog" type="button">← НАЗАД КО ВСЕМ ДОМИКАМ</button>
+        <div id="house-detail-content"></div>
+      </section>
+
+      <section id="bookings-page" class="page-section hidden">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">04 / PERSONAL SPACE</div>
+            <h2>Мои бронирования</h2>
+          </div>
+          <span class="live-indicator">LOCAL STORAGE</span>
+        </div>
+        <div id="bookings-list" class="bookings-list"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">NØRTH / CAMP</div>
+      <div class="footer-center">FIND YOUR OWN NORTH.</div>
+      <div class="footer-right">© 2026 · CONCEPT PROJECT</div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
